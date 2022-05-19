@@ -1,12 +1,11 @@
 cmake_minimum_required(VERSION 3.0)
-
-set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-
-project(CPP)
+project(Tasks)
 
 add_executable(
-CPP
-lib.h
-library_book.cpp
-)
+	Tasks
+	libraryApplication.cpp
+	src/Books.cpp
+	src/LibBooks.cpp
+	include/Books.h
+	include/LibBooks.h
+	)
