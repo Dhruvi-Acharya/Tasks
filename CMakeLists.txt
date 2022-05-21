@@ -5,7 +5,7 @@ add_executable(
 	Tasks
 	libraryApplication.cpp
 	src/Books.cpp
-	src/LibBooks.cpp
+	src/CountBooks.cpp
 	include/Books.h
-	include/LibBooks.h
+	include/CountBooks.h
 	)
