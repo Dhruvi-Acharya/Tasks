@@ -71,12 +71,15 @@ void Books::display(string bookAuthor) //!< definition of display book by given 
     }
     else
     {
-        cout<<"\nBook name "<< "\t Book ISBN No. "<< "\t Book Price "<< "\t Author "<< "\t Stock" << endl;
+        
         
         for (int j = 0; j < i; j++)
         {
             if (book_author[j] == bookAuthor)
             {
+                if(is_book_found==0){
+                    cout<<"\nBook name "<< "\t Book ISBN No. "<< "\t Book Price "<< "\t Author "<< "\t Stock" << endl;
+                }
                 is_book_found = 1;
 
                 cout << book_name[j] << "\t\t" << book_isbn_no[j] << "\t\t" << book_price[j] << "\t\t" << book_author[j] << "\t\t" << book_stock[j] << endl;
