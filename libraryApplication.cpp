@@ -30,6 +30,7 @@ int main()
 
 		cout <<"\nEnter your choice: ";
 		cin >> choice; /*! taking choice from user */
+		cout<<endl;
 
 		switch (choice)
 		{
