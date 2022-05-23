@@ -26,9 +26,9 @@ void Books::addBook(string bookName, string bookAuthor, int bookStock, int bookI
     {
         for (int j = 0; j < i; j++)
         {
-            if (book_name[j] == bookName)
+            if (book_name[j] == bookName && book_isbn_no[j] == bookISBN)
             {
-                cout << "\nYou cannot add another book with the same book name" << endl;
+                cout << "\nYou cannot add another book with the same book name or same ISBN number" << endl;
                 break;
             }
             else
@@ -111,7 +111,7 @@ void Books::issueBook(string bookName) //!< definition of issue a book from the 
 
                 if (book_stock[j] == 0) /*check if the stock of book is 0 or not */
                 { 
-                    cout << "\nYou can not isse book, No book availble!!!" << endl;
+                    cout << "\nYou can not issue book, No book availble!!!" << endl;
                 }
                 else
                 {
