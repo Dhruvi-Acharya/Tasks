@@ -8,4 +8,5 @@ add_executable(
 	src/CountBooks.cpp
 	include/Books.h
 	include/CountBooks.h
+	src/
 	)
