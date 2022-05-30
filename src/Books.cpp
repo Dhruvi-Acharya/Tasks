@@ -5,7 +5,7 @@ using namespace std;
 #include "../include/Books.h"
 
 void Books::welcomemsg() //!< definition of welcome message function
-{ 
+{
     cout << "\n------------Welcome to the Library------------\n";
 }
 
@@ -13,34 +13,39 @@ void Books::addBook(string bookName, string bookAuthor, int bookStock, int bookI
 {
     if (i == 0)
     {
-        book_name[i] = bookName;
-        book_author[i] = bookAuthor;
-        book_stock[i] = bookStock;
-        book_isbn_no[i] = bookISBN;
-        book_price[i] = bookPrice;
-        book_initial_stock[i] = bookStock;
+        bookObj.book_name = bookName;
+        bookObj.book_author = bookAuthor;
+        bookObj.book_stock = bookStock;
+        bookObj.book_isbn_no = bookISBN;
+        bookObj.book_price = bookPrice;
+        bookObj.book_initial_stock = bookStock;
+        bookList.push_back(bookObj);
         i++;
-        cout << "\nBook added successfully" << endl;
+        cout << endl
+             << bookName << " book added to the library successfully" << endl;
     }
     else
     {
-        for (int j = 0; j < i; j++)
+        for (it = bookList.begin(); it != bookList.end(); it++)
         {
-            if (book_name[j] == bookName || book_isbn_no[j] == bookISBN)
+            Book ptr = *it;
+            if (ptr.book_name == bookName || ptr.book_isbn_no == bookISBN)
             {
                 cout << "\nYou cannot add another book with the same book name or same ISBN number" << endl;
                 break;
             }
             else
             {
-                book_name[i] = bookName;
-                book_author[i] = bookAuthor;
-                book_stock[i] = bookStock;
-                book_isbn_no[i] = bookISBN;
-                book_price[i] = bookPrice;
-                book_initial_stock[i] = bookStock;
+                bookObj.book_name = bookName;
+                bookObj.book_author = bookAuthor;
+                bookObj.book_stock = bookStock;
+                bookObj.book_isbn_no = bookISBN;
+                bookObj.book_price = bookPrice;
+                bookObj.book_initial_stock = bookStock;
+                bookList.push_back(bookObj);
                 i++;
-                cout << "\nBook added successfully" << endl;
+                cout << endl
+                     << bookName << " book added to the library successfully" << endl;
                 break;
             }
         }
@@ -48,146 +53,178 @@ void Books::addBook(string bookName, string bookAuthor, int bookStock, int bookI
 }
 
 void Books::display() //!< definition of display all the book from the library
-{ 
+{
     if (i == 0)
     {
-        cout << "\nLibrary is empty" << endl;
+        cout << "Library is empty" << endl;
     }
     else
     {
-        cout<<"\nBook name "<<"\t Book ISBN No. "<<"\t Book Price "<<"\t Author "<<"\t Stock" <<endl;
-        
-        for (int j = 0; j < i; j++)
-            cout << book_name[j] << "\t\t" << book_isbn_no[j] << "\t\t" << book_price[j] << "\t\t" << book_author[j] << "\t\t" << book_stock[j] << endl;
+
+        int flag = 0;
+        cout << "Book Name "
+             << "\t Book ISBN No. "
+             << "\t Book Price "
+             << "\t Author "
+             << "\t Stock"
+             << "\t Book Issued" << endl;
+        for (it = bookList.begin(); it != bookList.end(); it++)
+        {
+            Book ptr = *it;
+            cout << ptr.book_name << "\t\t" << ptr.book_isbn_no << "\t\t" << ptr.book_price << "\t\t" << ptr.book_author << "\t\t" << ptr.book_stock << "\t\t" << ptr.book_issued << endl;
+            flag = 1;
+        }
     }
 }
 
-void Books::display(string bookAuthor) //!< definition of display book by given book author 
-{ 
-    int is_book_found = 0; 
+void Books::display(string bookAuthor) //!< definition of display book by given book author
+{
     if (i == 0)
     {
         cout << "\nLibrary is empty" << endl;
     }
     else
     {
-        
-        
-        for (int j = 0; j < i; j++)
-        {
-            if (book_author[j] == bookAuthor)
-            {
-                if(is_book_found==0){
-                    cout<<"\nBook name "<< "\t Book ISBN No. "<< "\t Book Price "<< "\t Author "<< "\t Stock" << endl;
-                }
-                is_book_found = 1;
 
-                cout << book_name[j] << "\t\t" << book_isbn_no[j] << "\t\t" << book_price[j] << "\t\t" << book_author[j] << "\t\t" << book_stock[j] << endl;
+        int is_book_found = 0;
+
+        for (it = bookList.begin(); it != bookList.end(); it++)
+        {
+            Book ptr = *it;
+            if (ptr.book_author == bookAuthor) /*!condition to check user entered id match to Pid array or not if it match account info will be shown*/
+            {
+                if (0 == is_book_found)
+                {
+                    cout << "\nBook Name "
+                         << "\t Book ISBN No. "
+                         << "\t Book Price "
+                         << "\t Author "
+                         << "\t Stock"
+                         << "\t Book Issued" << endl;
+                }
+                cout << ptr.book_name << "\t\t" << ptr.book_isbn_no << "\t\t" << ptr.book_price << "\t\t" << ptr.book_author << "\t\t" << ptr.book_stock << "\t\t" << ptr.book_issued << endl;
+                is_book_found = 1;
             }
         }
-
-        if (is_book_found == 0)
-        {
-            cout << "\n No book found by given author name" << endl;
-        }
+        if (0 == is_book_found)
+            cout << "\nNo book found by given author name" << endl;
     }
 }
 
 void Books::issueBook(string bookName) //!< definition of issue a book from the library
 {
-    int is_book_found = 0;
     if (i == 0)
     {
         cout << "\nLibrary is empty" << endl;
     }
     else
     {
-        for (int j = 0; j < i; j++)
+        int is_book_found = 0;
+        for (it = bookList.begin(); it != bookList.end(); it++)
         {
-            if (book_name[j] == bookName)
+            Book ptr = *it;
+            if (ptr.book_name == bookName) /*!condition to check user entered id match to Pid array or not if it match account info will be shown*/
             {
                 is_book_found = 1;
-
-                if (book_stock[j] == 0) /*check if the stock of book is 0 or not */
-                { 
+                if (ptr.book_stock == 0) /*check if the stock of book is 0 or not */
+                {
                     cout << "\nYou can not issue book, No book availble!!!" << endl;
+                    cout << "\nBook Name "
+                         << "\t Book ISBN No. "
+                         << "\t Book Price "
+                         << "\t Author "
+                         << "\t Stock"
+                         << "\t Book Issued" << endl;
+                    cout << ptr.book_name << "\t\t" << ptr.book_isbn_no << "\t\t" << ptr.book_price << "\t\t" << ptr.book_author << "\t\t" << ptr.book_stock << "\t\t" << ptr.book_issued << endl;
                 }
                 else
                 {
-                    book_stock[j]--;
+                    ptr.book_stock--;
+                    ptr.book_issued++;
+                    bookList.emplace(it, ptr); /*!inserting updated value into list*/
+                    bookList.erase(it);
                     cout << "\nBook Issued Successfully!!!" << endl;
+                    cout << "\nBook Name "
+                         << "\t Book ISBN No. "
+                         << "\t Book Price "
+                         << "\t Author "
+                         << "\t Stock"
+                         << "\t Book Issued" << endl;
+                    cout << ptr.book_name << "\t\t" << ptr.book_isbn_no << "\t\t" << ptr.book_price << "\t\t" << ptr.book_author << "\t\t" << ptr.book_stock << "\t\t" << ptr.book_issued << endl;
                 }
+                break;
             }
         }
-        if (is_book_found == 0)
-        {
+        if (0 == is_book_found)
             cout << "\nBook not found" << endl;
-        }
     }
 }
 
 void Books::returnBook(string bookName) //!< definition of return a book to the library
-{ 
-    int is_book_found = 0;
+{
     if (i == 0)
     {
         cout << "\nLibrary is empty" << endl;
     }
     else
     {
-        for (int j = 0; j < i; j++)
+        int is_book_found = 0;
+        for (it = bookList.begin(); it != bookList.end(); it++)
         {
-            if (book_name[j] == bookName)
+            Book ptr = *it;
+            if (ptr.book_name == bookName) /*!condition to check user entered id match to Pid array or not if it match account info will be shown*/
             {
                 is_book_found = 1;
-                if (book_stock[j] == book_initial_stock[j]) /*check if the initial stock of the book is same as stock then the book isn't issued but user try to return it */
-                { 
+                if (ptr.book_stock == ptr.book_initial_stock) /*check if the stock of book is 0 or not */
+                {
                     cout << "\nYou can't return book, because you didn't issued book" << endl;
                 }
                 else
                 {
-                    book_stock[j]++;
+                    ptr.book_stock++;
+                    ptr.book_issued--;
+                    bookList.emplace(it, ptr); /*!inserting updated value into list*/
+                    bookList.erase(it);
                     cout << "\nBook Returned Successfully!!!" << endl;
+                    cout << "\nBook Name "
+                         << "\t Book ISBN No. "
+                         << "\t Book Price "
+                         << "\t Author "
+                         << "\t Stock"
+                         << "\t Book Issued" << endl;
+                    cout << ptr.book_name << "\t\t" << ptr.book_isbn_no << "\t\t" << ptr.book_price << "\t\t" << ptr.book_author << "\t\t" << ptr.book_stock << "\t\t" << ptr.book_issued << endl;
                 }
+                break;
             }
         }
-        if (is_book_found == 0)
-        {
+        if (0 == is_book_found)
             cout << "\nBook not found" << endl;
-        }
     }
 }
 
 void Books::deleteBook(string bookName) //!< definition of delete a book from the library
 {
-    int is_book_found = 0;
     if (i == 0)
     {
         cout << "\nLibrary is empty" << endl;
     }
     else
     {
-        for (int j = 0; j < i; j++)
+        int is_book_found = 0;
+        for (it = bookList.begin(); it != bookList.end(); it++)
         {
-            if (book_name[j] == bookName)
+            Book ptr = *it;
+            if (ptr.book_name == bookName) /*!condition to check user entered id match to Pid array or not if it match account info will be shown*/
             {
                 is_book_found = 1;
-                for (int k = j; k < i; k++)
-                {
-                    book_name[j] = book_name[j + 1];
-                    book_author[j] = book_author[j + 1];
-                    book_stock[j] = book_stock[j + 1];
-                    book_initial_stock[j] = book_initial_stock[j + 1];
-                    book_isbn_no[j] = book_isbn_no[j + 1];
-                    book_price[j] = book_price[j + 1];
-                }
-                cout << "\nBook deleted successfully" << endl;
-                i = i - 1;
+                bookList.erase(it); /*!deleting information from list of particular id*/
+                cout << "Book deleted from the library sucessfully !!!" << endl
+                     << endl;
+                i--;
+                break;
             }
         }
-        if (is_book_found == 0)
-        {
-            cout << "\nBook not found" << endl;
-        }
+        if (0 == is_book_found)
+            cout << "\nNo book found by given book name" << endl;
     }
 }

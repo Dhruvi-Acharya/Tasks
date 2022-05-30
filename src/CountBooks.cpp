@@ -13,44 +13,52 @@ void CountBooks::countBook() //!< definition of count total number of books avai
 {
     if (i == 0)
     {
-        cout << "\nLibrary is empty" << endl;
+        cout << "Library is empty" << endl;
     }
     else
     {
+        int flag = 0;
         int count = 0;
-        for (int j = 0; j < i; j++)
+        for (it = bookList.begin(); it != bookList.end(); it++)
         {
-            count += book_stock[j];
+            Book ptr = *it;
+            count += ptr.book_stock;
+            flag = 1;
+            cout<< ptr.book_name << " book count: "<<ptr.book_stock<<endl;
         }
-        cout << "\nTotal number of books " << count << endl;
+        if (0 != flag)
+            cout << "\nTotal number of books in the library is: " << count << endl;
     }
 }
 
 void CountBooks::countBook(string bookName) //!< definition of count book given by book name
 {
-    int is_book_found = 0;
     if (i == 0)
     {
         cout << "\nLibrary is empty" << endl;
     }
     else
     {
+        int is_book_found = 0;
         int count = 0;
-        for (int j = 0; j < i; j++)
+        for (it = bookList.begin(); it != bookList.end(); it++)
         {
-            if (book_name[j] == bookName)
+            Book ptr = *it;
+            if (ptr.book_name == bookName) /*!condition to check user entered id match to Pid array or not if it match account info will be shown*/
             {
+                cout << "\nBook Name\tStock\tBook Issued" << endl;
+                count += ptr.book_stock;
                 is_book_found = 1;
-                count = book_stock[j];
+                cout << ptr.book_name << "\t\t" << ptr.book_stock << "\t\t" << ptr.book_issued << endl;
             }
         }
-        if (is_book_found == 0)
+        if (0 == is_book_found)
         {
-            cout << "\nbook not found by given book name" << endl;
+            cout << "\nBook not found by given book name" << endl;
         }
         else
         {
-            cout << "\nTotal number of books of given book name is: " << count << endl;
+            cout << "\nTotal number of books of " << bookName << " is: " << count << endl;
         }
     }
 }
